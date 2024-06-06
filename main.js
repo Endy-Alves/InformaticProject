@@ -44,6 +44,7 @@ fetch('usuarios.json')
   
             const responseData = await response.json();
             console.log(responseData);
+            sentEmails.push(birthdayUser.username);
           } catch (error) {
             console.error(`Erro ao enviar a mensagem: ${error.message}`);
           }
@@ -64,27 +65,14 @@ fetch('usuarios.json')
     newList2.innerHTML = `${username.birthday}`
    }
     
-    function agendarFuncao(horario, sendBirthdayEmail) {
-      // Calcula o horário em milissegundos até a próxima execução
-      var agora = new Date();
-      var horaAgendada = new Date(agora);
-      horaAgendada.setHours(horario.horas);
-      horaAgendada.setMinutes(horario.minutos);
-      horaAgendada.setSeconds(0);
-      horaAgendada.setMilliseconds(0);
-      if (horaAgendada <= agora) {
-          horaAgendada.setDate(horaAgendada.getDate() + 1);
+   function agendarFuncao(horario, sendBirthdayEmail) {
+    setInterval(function() {
+      const agora = new Date();
+      if (agora.getHours() === horario.horas && agora.getMinutes() === horario.minutos && agora.getSeconds() === 0) {
+        sendBirthdayEmail(data.users);
       }
-      var tempoAteProximaExecucao = horaAgendada - agora;
-  
-      // Configura o intervalo para verificar o horário e executar a função quando for a hora
-      setInterval(function() {
-        agora = new Date();
-        if (agora.getHours() === horario.horas && agora.getMinutes() === horario.minutos && agora.getSeconds() === 0) {
-          sendBirthdayEmail(data.users);
-        }
-    }, tempoAteProximaExecucao);
-}
+    }, 60000); // Verifica a cada minuto
+  }
   
   // Exemplo de uso:
   var horarioDesejado = { horas: 14, minutos: 33 };
