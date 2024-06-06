@@ -1,0 +1,12 @@
+.List{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+    border: 2px solid black;
+}
+.List:hover{
+    background-color: rgb(223, 223, 223);
+}
+header h1{
+    text-align: center;
+}

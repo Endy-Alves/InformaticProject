@@ -1,0 +1,19 @@
+{
+    "users":{
+        "teste1":{
+            "username": "Teste1",
+            "birthday": "2002-11-17",
+            "email": "endyalves095@gmail.com"
+        },
+        "teste2":{
+            "username": "Teste2",
+            "birthday": "2000-06-06",
+            "email": "endyalves095@gmail.com"
+        },
+        "teste3":{
+            "username": "Teste3",
+            "birthday": "2000-06-07",
+            "email": "endyalves095@gmail.com"
+        }
+    }
+}
