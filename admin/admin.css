@@ -1,0 +1,20 @@
+body, html{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid black;
+    height: 10em;
+    width: 10em;
+}
+input{
+    width: 8em;
+}

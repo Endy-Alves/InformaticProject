@@ -9,7 +9,6 @@ fetch('usuarios.json')
     async function sendBirthdayEmail(users) {
       console.log('Entrou na função ');
       const today = new Date();
-  
       // Convertendo o objeto users em um array
       const usersArray = Object.values(users);
       for (const birthdayUser of usersArray) {
@@ -30,7 +29,6 @@ fetch('usuarios.json')
   
             const url = `https://pm.rancharia.sp.gov.br/prefeitura/api_email/?destinatario=${params.destinatario}&assunto=${params.assunto}&mensagem=${params.mensagem}`
   
-            // Faz a chamada da API usando fetch
             const response = await fetch(url, {
               method: 'POST',
               headers: {
@@ -51,37 +49,43 @@ fetch('usuarios.json')
         }
       }
     }
-    const Users = Object.values(data.users);
-  for(const username of Users){
-    var div = document.createElement('div')
-    var h3 = document.createElement('h3')
-    var h4 = document.createElement('h4')
-    const listUser = document.getElementById('listUsers')
-    const List = listUser.appendChild(div)
-    List.setAttribute('class', 'List')
-    const newList = List.appendChild(h3)
-    const newList2 = List.appendChild(h4)
-    newList.innerHTML = `${username.username}`
-    newList2.innerHTML = `${username.birthday}`
-   }
     
-   function agendarFuncao(horario, sendBirthdayEmail) {
-    setInterval(function() {
-      const agora = new Date();
-      if (agora.getHours() === horario.horas && agora.getMinutes() === horario.minutos && agora.getSeconds() === 0) {
-        sendBirthdayEmail(data.users);
-      }
-    }, 60000); // Verifica a cada minuto
-  }
+    
+
+    const Users = Object.values(data.users);
+    for(const username of Users){
+      var div = document.createElement('div')
+      var h3 = document.createElement('h3')
+      var h4 = document.createElement('h4')
+      const listUser = document.getElementById('listUsers')
+      const List = listUser.appendChild(div)
+      List.setAttribute('class', 'List')
+      const newList = List.appendChild(h3)
+      const newList2 = List.appendChild(h4)
+      newList.innerHTML = `${username.username}`
+      newList2.innerHTML = `${username.birthday.split('-').reverse().join('-')}`;
+
+      const usersJson = JSON.stringify(Users)
+      localStorage.setItem('User', usersJson)
+    }
+    
+    function agendarFuncao(horario, sendBirthdayEmail) {
+      setInterval(function() {
+        const agora = new Date();
+        if (
+          agora.getHours() === horario.horas &&
+          agora.getMinutes() === horario.minutos &&
+          agora.getSeconds() === 0
+        ) {
+          sendBirthdayEmail(data.users);
+        }
+      }, 1000); // Verifica a cada segundo
+    }
   
-  // Exemplo de uso:
-  var horarioDesejado = { horas: 14, minutos: 33 };
-  agendarFuncao(horarioDesejado, sendBirthdayEmail(data.users));
-  
-      
+    var horarioDesejado = { horas: 13, minutos: 39 };
+    agendarFuncao(horarioDesejado, sendBirthdayEmail);
   
   })
-  
   .catch(error => {
     console.error('Ocorreu um erro:', error);
   });
